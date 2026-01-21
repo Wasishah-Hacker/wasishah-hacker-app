@@ -1,0 +1,24 @@
+name: Build Android APK
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4 # Updated to v4 to avoid deprecation
+
+      - name: Build with Buildozer
+        uses: ArtemGrinev/buildozer-action@v1 # This action is still valid, but checkout must be v4
+        with:
+          command: buildozer android debug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4 # Updated to v4 to fix the error you saw
+        with:
+          name: Wasishah-Hacker-App
+          path: bin/*.apk
+          
